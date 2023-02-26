@@ -32,7 +32,7 @@ const LogInUser = async (req, res) => {
     }
 
     delete req.session.user.password;
-    req.status(200).json({ message: "Success on login "})
+    res.status(200).json({ message: "Success on login "})
 }
 
 router.post("/login", registerValidation, LogInUser);

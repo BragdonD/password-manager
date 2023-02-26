@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
         // Create new user
         const user = new User(req.body);
         await user.save();
-        res.status(201).send(user);
+        res.status(201).send(user); // Need to be modified
     } catch (error) {
         res.status(500).send({ message: 'Internal server error' });
     }

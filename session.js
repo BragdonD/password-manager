@@ -10,7 +10,7 @@ const sessionConfig = {
     cookie: { maxAge: oneDay },
     resave: false,
     store: MongoStore.create({
-        mongoUrl: db.url,
+        mongoUrl: db,
         autoRemove: 'interval',
         autoRemoveInterval: 10,
         touchAfter: oneDay,

@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const db = require("./db");
+const session = require('./session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -14,6 +15,8 @@ const authRouter = require('./routes/auth')
 const enforceHttps = require('./middleware/enforce-https');
 
 var app = express();
+
+app.use(session);
 
 //app.use(enforceHttps); ///SSL certificate not working for now (fuck this)
 
