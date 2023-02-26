@@ -7,7 +7,7 @@
     "start": "browser-refresh ./bin/www",
     "tailwind:css": "tailwindcss -i public/stylesheets/style.css -o public/stylesheets/build.css --watch",
     "build:css": "tailwindcss -i public/stylesheets/style.css -o public/stylesheets/build.css -m",
-    "test": "jest",
+    "test": "jest -i",
     "encrypt:staging": "env-encrypt staging",
     "decrypt:staging": "env-decrypt staging"
   },
