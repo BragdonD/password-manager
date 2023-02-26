@@ -1,0 +1,4 @@
+{
+    "watch": ["app.js", "./views", "/models", "/config", "/bin"],
+    "ext": "js, jade, css, html"
+}

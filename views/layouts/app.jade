@@ -1,0 +1,8 @@
+doctype html 
+  head 
+    title #{title}
+    link(rel='stylesheet', href='/stylesheets/build.css')
+  body
+    div#app
+      block content
+    script(src="#{process.env.BROWSER_REFRESH_URL}") 
