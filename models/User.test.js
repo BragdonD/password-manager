@@ -7,10 +7,12 @@
  * and closes the database connection after the tests are completed.
  */
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 if (process.env.NODE_ENV!== 'production') {
     require('dotenv').config({ path: `.env.dev`, override: true });
 }
 const User = require('./User');
+
 
 
 // Test User model
@@ -99,5 +101,69 @@ describe('User model', () => {
     });
 
     await expect(user.save()).rejects.toThrow(mongoose.Error.ValidationError);
+  });
+
+  // test authenticate the user
+  it('should authenticate the user', async () => {
+    const user = new User({
+      email: 'test6@example.com',
+      password: 'password',
+      name: 'Test User',
+    });
+
+    await user.save();
+    const auth = await user.authenticate("password");
+    expect(auth).toBe(true);
+  });
+
+  // test not authenticate the user
+  it('should not authenticate the user', async () => {
+    const user = new User({
+      email: 'test7@example.com',
+      password: 'password',
+      name: 'Test User',
+    });
+
+    await user.save();
+    const auth = await user.authenticate("test");
+    expect(auth).toBe(false);
+  })
+
+  it('should update the user password', async () => {
+    const user = new User({
+      email: 'test8@example.com',
+      name: 'Test User',
+      password: 'password123',
+    });
+    const newPassword = 'newPassword123';
+    const currentHashedPassword = user.password;
+    await user.updatePassword(newPassword);
+    expect(user.password).not.toBe(currentHashedPassword);
+    expect(user.password).not.toBe(newPassword);
+  });
+
+  it('should hash the password field before saving', async () => {
+    const user = new User({
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      password: 'password123'
+    });
+    await user.save();
+    expect(user.password).not.toBe('password123');
+    const passwordMatch = await bcrypt.compare('password123', user.password);
+    expect(passwordMatch).toBe(true);
+  });
+
+  it('should not hash the password field if it is not modified', async () => {
+    const user = new User({
+      name: 'John Doe',
+      email: 'john.doe2@example.com',
+      password: 'password123'
+    });
+    await user.save();
+    const originalPassword = user.password;
+    user.name = 'Jane Doe';
+    await user.save();
+    expect(user.password).toBe(originalPassword);
   });
 });

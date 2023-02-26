@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-const bcrypt = require("bcrypt");
+const fieldEncryption = require('mongoose-field-encryption');
+const crypto = require('crypto');
+if (process.env.NODE_ENV!== 'production') {
+  require('dotenv').config({ path: `.env.dev`, override: true });
+}
 
 const passwordSchema = new mongoose.Schema({
   appname: {
@@ -32,15 +36,11 @@ passwordSchema.index({ appname: 1, user: 1 }, { unique: true });
 // Add unique validation plugin
 passwordSchema.plugin(uniqueValidator);
 
-// Hash the password field before saving the user to the database
-passwordSchema.pre("save", function (next) {
-  const password = this;
-  if (!password.isModified("password")) return next();
-  bcrypt.hash(password.password, 10, function (err, hash) {
-    if (err) return next(err);
-    password.password = hash;
-    next();
-  });
+// Hash the password field 
+passwordSchema.plugin(fieldEncryption.fieldEncryption, {
+  fields: ["password"],
+  secret: process.env.ENCRYPTION_KEY_32BYTE,
+  saltGenerator: secret => crypto.randomBytes(16),
 });
 
 const Password = mongoose.model('Password', passwordSchema);

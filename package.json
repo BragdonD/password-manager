@@ -7,7 +7,7 @@
     "start": "browser-refresh ./bin/www",
     "tailwind:css": "tailwindcss -i public/stylesheets/style.css -o public/stylesheets/build.css --watch",
     "build:css": "tailwindcss -i public/stylesheets/style.css -o public/stylesheets/build.css -m",
-    "test": "jest -i",
+    "test": "jest -i --detectOpenHandles",
     "encrypt:staging": "env-encrypt staging",
     "decrypt:staging": "env-decrypt staging"
   },
@@ -21,6 +21,8 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-session": "^1.17.3",
+    "express-validation": "^4.1.0",
+    "express-validator": "^6.15.0",
     "helmet": "^6.0.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
@@ -38,7 +40,9 @@
     "dotenv": "^16.0.3",
     "encrypted-env": "^0.2.1",
     "jest": "^29.4.3",
+    "node-mocks-http": "^1.12.1",
     "postcss": "^8.4.21",
+    "supertest": "^6.3.3",
     "tailwindcss": "^3.2.7",
     "tailwindcss-fluid-type": "^2.0.3"
   }
