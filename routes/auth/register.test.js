@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const User = require('../../models/User');
 
-const registerRouter = require('./register').router;
+const registerRouter = require('./register');
 
 const app = express()
 app.use(express.json());

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
-const User = require("../models/user");
+const User = require("../../models/User");
 
 const registerValidation = [
     body("email").isEmail().normalizeEmail(),
@@ -32,6 +32,7 @@ const LogInUser = async (req, res) => {
     }
 
     delete req.session.user.password;
+    req.status(200).json({ message: "Success on login "})
 }
 
 router.post("/login", registerValidation, LogInUser);

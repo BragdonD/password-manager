@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../../models/User');
 const { body, validationResult } = require('express-validator');
+const User = require('../../models/User');
 
 const registerValidation = [
     // Validate email, name and password fields
@@ -35,7 +35,4 @@ const registerUser = async (req, res) => {
 
 router.post('/register', registerValidation, registerUser);
 
-module.exports = {
-    router: router, 
-    registerUser: registerUser, // Exporting it to test it
-};
+module.exports = router;
