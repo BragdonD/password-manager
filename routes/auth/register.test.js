@@ -2,7 +2,9 @@ const request = require('supertest');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-
+if (process.env.NODE_ENV!== 'production') {
+    require('dotenv').config({ path: `.env.dev`, override: true });
+}
 const User = require('../../models/User');
 
 const registerRouter = require('./register');
@@ -41,9 +43,6 @@ describe('POST /register', () => {
         const response = await request(app)
             .post('/register')
             .send(validUserData);
-
-        console.log(response.body);
-
 
         // Expect the response to have a 201 status code and the user data in the body
         expect(response.status).toBe(201);
