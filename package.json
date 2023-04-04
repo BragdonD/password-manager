@@ -43,7 +43,7 @@
     "node-mocks-http": "^1.12.1",
     "postcss": "^8.4.21",
     "supertest": "^6.3.3",
-    "tailwindcss": "^3.2.7",
+    "tailwindcss": "^3.3.1",
     "tailwindcss-fluid-type": "^2.0.3"
   }
 }
