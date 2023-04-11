@@ -27,7 +27,7 @@
     "http-errors": "~2.0.0",
     "jade": "~1.11.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.10.1",
+    "mongoose": "^6.10.5",
     "mongoose-encryption": "^2.1.2",
     "mongoose-field-encryption": "^6.0.0",
     "mongoose-unique-validator": "^3.1.0",
